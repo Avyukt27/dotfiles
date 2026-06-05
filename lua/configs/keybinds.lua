@@ -47,3 +47,14 @@ end, { desc = 'Start Live LaTeX Preview' })
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
 
 vim.keymap.set('n', '<leader>re', '<cmd>restart<cr>')
+
+vim.keymap.set('n', '<leader>cc', function()
+  local cc = require 'codecompanion'
+  local chat = cc.last_chat()
+  if chat and chat:is_visible() then
+    chat:close()
+  else
+    cc.toggle()
+  end
+end, { desc = 'Toggle CodeCompanion AI Chat' })
+vim.keymap.set('n', '<leader>ci', '<cmd>CodeCompanion<cr>', { desc = 'Prompt inline CodeCompanion AI' })

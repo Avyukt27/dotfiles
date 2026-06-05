@@ -397,7 +397,7 @@ return {
   },
   -- Rename File
   {
-    '<leader>cR',
+    'cR',
     function()
       Snacks.rename.rename_file()
     end,

@@ -21,20 +21,6 @@ return {
     },
   },
 
-  basedpyright = {
-    capabilities = capabilities,
-    root_dir = vim.fs.root(0, { 'pyproject.toml', '.git' }),
-    settings = {
-      basedpyright = {
-        analysis = {
-          diagnosticMode = 'workspace',
-          typeCheckingMode = 'off',
-        },
-        disableOrganizeImports = true,
-      },
-    },
-  },
-
   lua_ls = {
     capabilities = capabilities,
     root_dir = vim.fs.root(0, { 'lua', '.git' }),
@@ -88,4 +74,15 @@ return {
   },
 
   vue_ls = {},
+
+  emmet_ls = {
+    filetypes = { 'css', 'eruby', 'html', 'javascript', 'javascriptreact', 'less', 'sass', 'scss', 'svelte', 'pug', 'typescriptreact', 'vue' },
+    init_options = {
+      html = {
+        options = {
+          ['output.selfClosingStyle'] = 'xhtml',
+        },
+      },
+    },
+  },
 }

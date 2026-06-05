@@ -23,7 +23,7 @@ if handle then
           end
         end
       else
-        vim.notify('Error loading specification: ' .. require_path, vim.log.level.WARN)
+        vim.notify('Error loading util: ' .. require_path, vim.log.levels.WARN)
       end
     end
   end
