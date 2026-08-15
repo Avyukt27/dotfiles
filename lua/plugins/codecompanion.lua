@@ -2,16 +2,20 @@ return {
   'olimorris/codecompanion.nvim',
   dependencies = {
     'mrjones2014/codecompanion-ui.nvim',
-    {
-      'MeanderingProgrammer/render-markdown.nvim',
-      ft = { 'codecompanion', 'codecompanion-ui' },
-    },
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
   opts = {
     strategies = {
-      chat = { adapter = 'groq' },
+      chat = {
+        adapter = 'groq',
+        tools = {
+          opts = {
+            auto_submit_errors = true,
+            auto_submit_success = true,
+          },
+        },
+      },
       inline = { adapter = 'groq' },
       cmd = { adapter = 'groq' },
     },

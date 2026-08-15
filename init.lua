@@ -38,7 +38,6 @@ require('lazy').setup({
   },
 })
 
-require 'configs.treesitter.treesitter'
 require 'configs.autocmds'
 
 -- vim: ts=2 sts=2 sw=2 et

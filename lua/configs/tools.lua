@@ -1,5 +1,6 @@
 return {
   -- LSPs
+  'air',
   'asm-lsp',
   'bash-language-server',
   'clangd',
@@ -10,6 +11,7 @@ return {
   'fortls',
   'html-lsp',
   'jdtls',
+  'julia-lsp',
   'lua-language-server',
   'ruff',
   'rust-analyzer',

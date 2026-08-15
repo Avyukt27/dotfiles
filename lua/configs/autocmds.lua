@@ -59,3 +59,10 @@ vim.api.nvim_create_autocmd('FileType', {
     pcall(vim.treesitter.start, buf, lang)
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { '*/swaync/*.css', '*/waybar/*.css' },
+  callback = function()
+    vim.bo.filetype = 'less'
+  end,
+})

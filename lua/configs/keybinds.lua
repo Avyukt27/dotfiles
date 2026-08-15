@@ -10,8 +10,10 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('i', '<C-u>', '', opts)
+vim.keymap.set('v', '<C-Right>', '"e"', opts)
+vim.keymap.set('v', '<C-Left>', '"b"', opts)
 vim.keymap.set('n', '<C-Right>', '"e"', opts)
-vim.keymap.set('n', '<C-Left>', '"ge"', opts)
+vim.keymap.set('n', '<C-Left>', '"b"', opts)
 vim.keymap.set('i', '<C-Right>', '"<C-o>w"', opts)
 vim.keymap.set('i', '<C-Left>', '"<C-o>b"', opts)
 vim.keymap.set('i', '<C-BS>', '"<C-o>db"', opts)

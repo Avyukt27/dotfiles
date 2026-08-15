@@ -21,6 +21,20 @@ return {
     },
   },
 
+  pyright = {
+    capabilities = capabilities,
+    init_options = {
+      settings = {
+        python = {
+          analysis = {
+            typeCheckingMode = 'off',
+            diagnosticMode = 'off',
+          },
+        },
+      },
+    },
+  },
+
   lua_ls = {
     capabilities = capabilities,
     root_dir = vim.fs.root(0, { 'lua', '.git' }),
