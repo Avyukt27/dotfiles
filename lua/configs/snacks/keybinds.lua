@@ -359,14 +359,14 @@ return {
   },
   -- Zen mode
   {
-    '<leader>z',
+    '<leader>uz',
     function()
       Snacks.zen()
     end,
     desc = 'Toggle Zen Mode',
   },
   {
-    '<leader>Z',
+    '<leader>uZ',
     function()
       Snacks.zen.zoom()
     end,
@@ -386,14 +386,6 @@ return {
       Snacks.scratch.select()
     end,
     desc = 'Select Scratch Buffer',
-  },
-  -- Delete Buffer
-  {
-    '<leader>bd',
-    function()
-      Snacks.bufdelete()
-    end,
-    desc = 'Delete Buffer',
   },
   -- Rename File
   {

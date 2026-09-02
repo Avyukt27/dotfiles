@@ -45,10 +45,12 @@ return {
       { '<leader>g', group = 'Git' },
       { '<leader>gh', group = 'GitHub Integrations' },
       { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
+      { '<leader>l', group = 'VimTex' },
       { '<leader>s', group = 'Search' },
       { '<leader>t', group = 'Toggle Git' },
       { '<leader>u', group = 'Toggle Settings' },
       { '<leader>v', group = 'Python venv' },
+      { '<leader>M', group = 'MiniSessions' },
     },
   },
 }

@@ -11,6 +11,7 @@ return {
 
     vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
     vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+    vim.keymap.set('n', 'zp', require('ufo').peekFoldedLinesUnderCursor, { desc = 'Peek fold under cursor' })
 
     require('ufo').setup {
       provider_selector = function(bufnr, filetype, buftype)

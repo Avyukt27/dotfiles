@@ -19,32 +19,56 @@ vim.keymap.set('i', '<C-Left>', '"<C-o>b"', opts)
 vim.keymap.set('i', '<C-BS>', '"<C-o>db"', opts)
 vim.keymap.set('i', '<C-Del>', '"<C-o>dw"', opts)
 
+local latex_augroup = vim.api.nvim_create_augroup('LatexAutoSave', { clear = true })
+
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  pattern = { '*.tex' },
+  group = latex_augroup,
+  callback = function()
+    if vim.bo.modified and vim.bo.filetype == 'tex' then
+      vim.cmd 'silent! write'
+    end
+  end,
+})
+
+vim.b.latex_preview_job = vim.b.latex_preview_job or nil
+
 vim.keymap.set('n', '<leader>lp', function()
   local current_file = vim.fn.expand '%:p'
   local project_dir = vim.fn.expand '%:p:h'
   local pdf_file = vim.fn.expand '%:p:r' .. '.pdf'
 
-  vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-    pattern = { 'main.tex', '*/sections/*.tex' },
-    callback = function()
-      if vim.bo.modified then
-        vim.cmd 'silent! write'
-      end
-    end,
-  })
+  if vim.bo.filetype ~= 'tex' then
+    print 'Not a LaTeX file!'
+    return
+  end
 
-  vim.fn.jobstart({
-    'latexmk',
-    '-pvc',
-    '-pdf',
-    '-interaction=nonstopmode',
-    current_file,
-  }, { cwd = project_dir })
+  if not vim.b.latex_preview_job then
+    vim.fn.jobstart({
+      'latexmk',
+      '-pvc',
+      '-pdf',
+      '-interaction=nonstopmode',
+      vim.fn.expand '%:t',
+    }, {
+      cwd = project_dir,
+      on_exit = function()
+        vim.b.latex_preview_job = nil
+      end,
+    })
+    print 'Started Live Preview'
+  else
+    print 'Live preview is already running'
+  end
 
   vim.defer_fn(function()
-    vim.fn.jobstart({ 'zathura', pdf_file }, { detach = true })
-  end, 1000)
-end, { desc = 'Start Live LaTeX Preview' })
+    if vim.fn.filereadable(pdf_file) == 1 then
+      vim.fn.jobstart({ 'zathura', pdf_file }, { detach = true })
+    else
+      print 'Waiting for PDF'
+    end
+  end, 1500)
+end, { desc = 'Start Live LaTeX Preview', silent = true })
 
 vim.keymap.set('n', 'gn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
 
@@ -60,3 +84,21 @@ vim.keymap.set('n', '<leader>cc', function()
   end
 end, { desc = 'Toggle CodeCompanion AI Chat' })
 vim.keymap.set('n', '<leader>ci', '<cmd>CodeCompanion<cr>', { desc = 'Prompt inline CodeCompanion AI' })
+
+vim.keymap.set('n', '<leader>Mc', function()
+  vim.ui.input({ prompt = 'Save session as: ' }, function(input)
+    if not input or input == '' then
+      return
+    end
+    MiniSessions.write(input)
+  end)
+end, { desc = 'Save session' })
+vim.keymap.set('n', '<leader>Ms', '<cmd>lua MiniSessions.select()<cr>', { desc = 'Select session' })
+vim.keymap.set('n', '<leader>Md', function()
+  vim.ui.input({ prompt = 'Delete session: ' }, function(input)
+    if not input or input == '' then
+      return
+    end
+    MiniSessions.delete(input)
+  end)
+end, { desc = 'Delete session' })

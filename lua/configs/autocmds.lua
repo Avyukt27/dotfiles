@@ -1,11 +1,12 @@
 local servers = require 'configs.servers'
 local capabilities = require('blink-cmp').get_lsp_capabilities()
 
+local yankHighlightAuGrp = vim.api.nvim_create_augroup('highlight-yank', { clear = true })
 local myAugrp = vim.api.nvim_create_augroup('myAutocmds', { clear = true })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+  group = yankHighlightAuGrp,
   callback = function()
     vim.hl.on_yank()
   end,
@@ -42,6 +43,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
+  group = myAugrp,
   callback = function(args)
     local buf = args.buf
     local ft = vim.bo[buf].filetype
@@ -62,6 +64,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '*/swaync/*.css', '*/waybar/*.css' },
+  group = myAugrp,
   callback = function()
     vim.bo.filetype = 'less'
   end,
