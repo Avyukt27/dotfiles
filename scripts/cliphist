@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+case $1 in
+d)
+    selected=$(cliphist list | awk '{$1=""; sub(/^ /, ""); print}' | rofi -dmenu -replace -config ~/.config/rofi/cliphist.rasi)
+    [ -z "$selected" ] && exit 0
+    cliphist list | grep -F "$selected" | head -n 1 | cliphist delete
+    ;;
+w)
+    cliphist wipe
+    ;;
+*)
+    selected=$(cliphist list | awk '{$1=""; sub(/^ /, ""); print}' | rofi -dmenu -replace -config ~/.config/rofi/cliphist.rasi)
+    [ -z "$selected" ] && exit 0
+    cliphist list | grep -F "$selected" | head -n 1 | cliphist decode | wl-copy
+    ;;
+esac
