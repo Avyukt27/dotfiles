@@ -1,0 +1,24 @@
+{
+  "layer": "top",
+  "margin-bottom": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "include": [
+    "~/.config/waybar/modules.json"
+  ],
+  "modules-left": [
+    "hyprland/workspaces",
+  ],
+  "modules-center": [
+    "hyprland/window",
+  ],
+  "modules-right": [
+    "backlight",
+    "pulseaudio",
+    "bluetooth",
+    "battery",
+    "custom/notification",
+    "clock"
+  ]
+}
