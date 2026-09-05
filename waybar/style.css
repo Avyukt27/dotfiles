@@ -1,0 +1,162 @@
+@define-color bg_bar rgba(15, 12, 10, 0.65);
+@define-color bg_pill rgba(255, 255, 255, 0.08);
+@define-color bg_pill_hover rgba(255, 255, 255, 0.15);
+@define-color border_highlight #CCCCCC;
+@define-color border_subtle rgba(204, 204, 204, 0.4);
+
+@define-color text_main #f1dfda;
+@define-color text_dark #1a110f;
+@define-color text_muted rgba(241, 223, 218, 0.7);
+
+* {
+  font-family: "JetBrainsMono Nerd Font Propo";
+  border: none;
+  border-radius: 0px;
+  font-size: 14px;
+}
+
+window#waybar {
+  background-color: @bg_bar;
+  border-bottom: 1px solid @border_subtle;
+  color: @text_main;
+  transition: background-color 0.3s ease;
+}
+
+/* =========================================================================
+ * WORKSPACES
+ * ========================================================================= */
+#workspaces {
+  margin: 5px 4px;
+  padding: 0px 2px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#workspaces button {
+  padding: 2px 8px;
+  margin: 3px 2px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: @text_muted;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active {
+  color: @text_dark;
+  background: @border_highlight;
+  font-weight: bold;
+  border-radius: 8px;
+  min-width: 32px;
+}
+
+/* =========================================================================
+ * MODULE CAPSULES (Clock, Battery, Network, Audio, etc.)
+ * ========================================================================= */
+#clock,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery {
+  background-color: @bg_pill;
+  color: @text_main;
+  border-radius: 10px;
+  border: 1px solid @border_subtle;
+  padding: 3px 12px;
+  margin: 6px 4px;
+  transition: all 0.2s ease;
+}
+
+#clock:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#battery:hover {
+  background-color: @bg_pill_hover;
+  border-color: @border_highlight;
+}
+
+/* Dynamic Module States */
+#pulseaudio.muted {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: @text_muted;
+  border-color: transparent;
+}
+
+#network.disconnected {
+  background-color: rgba(220, 47, 47, 0.2);
+  border-color: #dc2f2f;
+  color: #ff8585;
+}
+
+/* Battery Alerts */
+#battery.charging,
+#battery.plugged {
+  border-color: #4cd137;
+}
+
+@keyframes blink {
+  to {
+    background-color: #dc2f2f;
+    color: #ffffff;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: rgba(220, 47, 47, 0.3);
+  color: #ffffff;
+  border-color: #dc2f2f;
+  animation-name: blink;
+  animation-duration: 0.6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* =========================================================================
+ * INLINE ICONS & UTILITIES
+ * ========================================================================= */
+#window {
+  margin: 0 10px;
+  color: @text_main;
+  font-weight: 500;
+}
+
+#disk,
+#memory,
+#cpu,
+#language,
+#idle_inhibitor,
+#custom-exit,
+#custom-notification {
+  margin: 0 6px;
+  padding: 0 4px;
+  color: @text_main;
+}
+
+#idle_inhibitor.activated {
+  color: #dc2f2f;
+}
+
+#custom-notification {
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+/* Tooltips */
+tooltip {
+  border-radius: 10px;
+  border: 1px solid @border_highlight;
+  background-color: rgba(20, 15, 13, 0.95);
+  padding: 10px;
+}
+
+tooltip label {
+  color: @text_main;
+}
+
+#tray {
+  margin-right: 10px;
+}
